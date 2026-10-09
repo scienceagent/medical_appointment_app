@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'screens/home_screen.dart';
-import 'theme/app_colors.dart';
+import 'dynamic_list_widget.dart';
+import 'resources/app_theme.dart';
 
+/// Punctul de intrare al aplicației.
 void main() {
+  // Necesar înainte de a configura sistemul (bara de stare).
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Bara de stare (ora, bateria) transparentă, cu iconițe închise la culoare.
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.dark,
     ),
   );
+
   runApp(const MedicalAppointmentApp());
 }
 
+/// Widget-ul rădăcină: configurează tema și primul ecran afișat.
 class MedicalAppointmentApp extends StatelessWidget {
   const MedicalAppointmentApp({super.key});
 
@@ -23,25 +28,8 @@ class MedicalAppointmentApp extends StatelessWidget {
     return MaterialApp(
       title: 'Medical Appointment',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: AppColors.white,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: AppColors.primary,
-          primary: AppColors.primary,
-          secondary: AppColors.secondary,
-          surface: AppColors.white,
-        ),
-        textTheme: GoogleFonts.outfitTextTheme(
-          Theme.of(context).textTheme,
-        ),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: AppColors.white,
-          elevation: 0,
-          scrolledUnderElevation: 0,
-        ),
-      ),
-      home: const HomeScreen(),
+      theme: AppTheme.light(context),
+      home: const DynamicListWidget(),
     );
   }
 }
